@@ -1,56 +1,34 @@
 <script>
-
 import favicon from '$lib/assets/favicon.svg';
-
-
-// onMount runs after the component is mounted to the DOM
-
-// only runs in the browser, not SSR (server-side rendering)
-
 import { onMount } from 'svelte';
-
-
-// Browser used to test if client or server side
-
 import { browser } from '$app/environment';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
-
-onMount( async () => {
-
-if (browser) {
-
-// if running in the browser, load Bootstrap
-
-console.log("Loading Bootstrap");
-
-await import('bootstrap');
-
-}
-
-})
-
-
-let { children } = $props();
-
+onMount(async () => {
+  if (browser) {
+    console.log("Loading Bootstrap JS");
+    await import('bootstrap');
+  }
+});
 </script>
 
-
 <svelte:head>
-
-<link rel="icon" href={favicon} />
-
+  <link rel="icon" href={favicon} />
 </svelte:head>
 
-<nav>
-	<a href="/">Home</a>
-	<a href="/browse">Browse</a>
-	<a href="/contact">Contact</a>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-3 mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">FitWorld</a>
+    <div>
+      <a class="nav-link d-inline mx-2" href="/">Home</a>
+      <a class="nav-link d-inline mx-2" href="/browse">Browse</a>
+      <a class="nav-link d-inline mx-2" href="/contact">Contact</a>
+    </div>
+  </div>
 </nav>
 
-{@render children()}
 
+<!---renders page-->
+<slot />
