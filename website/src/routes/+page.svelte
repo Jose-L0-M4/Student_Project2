@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<h1>Welcome to FitWorld</h1>
+<h2>The best Fitness guide website</h2>
+
+<div class="container">
+  <p>This is centered with padding on the sides.</p>
+</div>
+
