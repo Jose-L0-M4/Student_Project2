@@ -17,7 +17,7 @@
   // on mount stuff here
   onMount(() => {
     if (browser) {
-      theme = document.documentElement.gettAttribute("data-bs-theme");
+      theme = document.documentElement.getAttribute("data-bs-theme");
     }
   });
 
@@ -54,7 +54,7 @@
 
 
   <script>
-    //aplay theme faster
+    //aplay theme
     (function() {
       try {
         const stored = localStorage.getItem("theme");
@@ -81,7 +81,7 @@
 
       <button 
         class="btn btn-outline-secondary  mx-2"
-        on:click={toggleTheme}>{theme === "light" ? "light" : "dark"}
+        on:click={toggleTheme}>{theme === "light" ? "Light" : "Dark"}
       </button>
 
     </div>
