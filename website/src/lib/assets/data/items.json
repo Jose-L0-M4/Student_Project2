@@ -13,6 +13,36 @@
     "desc": "stuff you know stuff",
     "image": "/images/gym.jpg" ,
     "link": "/chest"
+    },
+    {
+    "id": 1,
+    "name": "abs",
+    "desc": "stuff you know stuff",
+    "image": "/images/abs.jpg" ,
+    "link": "/abs"
+    },
+
+    {
+    "id": 2,
+    "name": "chest",
+    "desc": "stuff you know stuff",
+    "image": "/images/gym.jpg" ,
+    "link": "/chest"
+    },
+    {
+    "id": 1,
+    "name": "abs",
+    "desc": "stuff you know stuff",
+    "image": "/images/abs.jpg" ,
+    "link": "/abs"
+    },
+
+    {
+    "id": 2,
+    "name": "chest",
+    "desc": "stuff you know stuff",
+    "image": "/images/gym.jpg" ,
+    "link": "/chest"
     }
 
 ]

@@ -23,7 +23,7 @@
         </div>
       </a>
     </div>
-  {/each}
+    {/each}
 
   </div>
 
