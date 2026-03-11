@@ -1,2 +1,4 @@
 make light theme look better
 make browse dynamic 
+get images that are same size so that browse looks better
+make the container things in browser to make it fixed size
