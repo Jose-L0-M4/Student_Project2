@@ -76,7 +76,11 @@
     <div>
 
       <a class="nav-link d-inline mx-2" href="/">Home</a>
+      <a class="nav-link d-inline mx-2" href="/LogIn">Log In</a>
+      <a class="nav-link d-inline mx-2" href="/SignUp">Sign Up</a>
       <a class="nav-link d-inline mx-2" href="/browse">Browse</a>
+      <a class="nav-link d-inline mx-2" href="/diet_planner">Diet Planner</a>
+      <a class="nav-link d-inline mx-2" href="/workout_planner">Workout Planner</a>
       <a class="nav-link d-inline mx-2" href="/contact">Contact</a>
 
       <button 
