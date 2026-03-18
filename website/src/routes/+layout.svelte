@@ -1,4 +1,5 @@
-
+<!-- Old One 
+ 
 <script>
   
   import favicon from '$lib/assets/favicon.svg';
@@ -48,7 +49,7 @@
 
 
 
-<!-- icon that will change at some point-->
+<!- icon that will change at some point>
 <svelte:head>
   <link rel="icon" href={favicon} />
 
@@ -69,7 +70,7 @@
 </svelte:head>
 
 
-<!--this is the navbar-->
+<!-this is the navbar>
 <nav class="navbar navbar-expand-lg navbar bg-body-tertiary p-3 mb-4">
   <div class="container-fluid px-2">
     <a class="navbar-brand" href="/">FitWorld</a>
@@ -93,5 +94,106 @@
 </nav>
 
 
-<!---renders page-->
+<!-renders page>
+<slot />
+-->
+
+
+<script>
+  import favicon from '$lib/assets/favicon.svg';
+  import { onMount } from 'svelte';
+  import { browser } from '$app/environment';
+
+  import 'bootstrap/dist/css/bootstrap.min.css';
+  import 'bootstrap-icons/font/bootstrap-icons.min.css';
+
+  let theme = "light";
+  let menuOpen = false;
+
+  onMount(async () => {
+    if (browser) {
+      theme = document.documentElement.getAttribute("data-bs-theme") || "light";
+      await import('bootstrap');
+    }
+  });
+
+  function toggleTheme() {
+    theme = theme === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-bs-theme", theme);
+    localStorage.setItem("theme", theme);
+  }
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+  }
+</script>
+
+<svelte:head>
+  <link rel="icon" href={favicon} />
+</svelte:head>
+
+<!-- NAVBAR -->
+<nav class="navbar bg-body-tertiary px-3 shadow-sm">
+
+  <!-- LEFT: Menu + Logo -->
+  <div class="d-flex align-items-center">
+    <!-- svelte-ignore a11y_consider_explicit_label -->
+    <button class="btn me-2" on:click={toggleMenu}>
+      <i class="bi bi-list fs-4"></i>
+    </button>
+
+    <a class="navbar-brand fw-bold" href="/">FitWorld</a>
+  </div>
+
+  <!-- RIGHT: Icons -->
+  <div class="d-flex align-items-center gap-2">
+
+    <!-- svelte-ignore a11y_consider_explicit_label -->
+    <a href="/LogIn" class="btn">
+      <i class="bi bi-person-circle fs-5"></i>
+    </a>
+
+    <!-- svelte-ignore a11y_consider_explicit_label -->
+    <button 
+      class="btn btn-outline-secondary"
+      on:click={toggleTheme}
+    >
+      <i class="bi bi-moon"></i>
+    </button>
+
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+{#if menuOpen}
+  <!-- Overlay -->
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div 
+    class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50"
+    style="z-index: 1040;"
+    on:click={toggleMenu}
+  ></div>
+
+  <!-- Sidebar -->
+  <div 
+    class="position-fixed top-0 start-0 vh-100 bg-body-tertiary shadow p-3"
+    style="width: 250px; z-index: 1050;"
+  >
+    <h5 class="mb-4">Menu</h5>
+
+    <a class="nav-link mb-2" href="/">🏠 Home</a>
+    <a class="nav-link mb-2" href="/browse">🔍 Browse</a>
+    <a class="nav-link mb-2" href="/diet_planner">🥗 Diet Planner</a>
+    <a class="nav-link mb-2" href="/workout_planner">🏋️ Workout Planner</a>
+    <a class="nav-link mb-2" href="/contact">📩 Contact</a>
+
+    <hr />
+
+    <a class="nav-link mb-2" href="/LogIn">Log In</a>
+    <a class="nav-link mb-2" href="/SignUp">Sign Up</a>
+  </div>
+{/if}
+
+<!-- Page Content -->
 <slot />
