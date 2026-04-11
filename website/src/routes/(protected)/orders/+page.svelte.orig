@@ -1,0 +1,52 @@
+<script>
+  // get data that was returned when the page was loaded
+  let { data } = $props();
+
+  // get the orders data
+  let orders = $state(data.orders);
+
+  // Optional: inspect data during development
+  // $inspect(orders);
+
+  // Format the money
+  const euro = new Intl.NumberFormat('en-IE', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2
+});
+
+
+</script>
+
+<h3>Orders</h3>
+
+<section>
+  <table class="table table-bordered table-hover w-75">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User ID</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- iterate over orders, adding a new table row for each order -->
+      {#each orders as order}
+        <tr>
+          <td>
+            <a href={`/orders/${order.id}`}>
+              {order.id}
+            </a>
+          </td>
+          <td>{order.userId}</td>
+          <td class="text-capitalize">{order.status}</td>
+          <td>{euro.format(order.total)}</td>
+          <td>{new Date(order.createdAt).toLocaleString()}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</section>

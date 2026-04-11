@@ -1,13 +1,13 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
-
 import { sql, relations } from 'drizzle-orm';
-
+import { user } from './auth.schema.js';
+export * from './auth.schema';
 
 /** =========================
 
 * User Table
 
-* ========================= */
+
 
 export const user = sqliteTable('user', {
 
@@ -28,13 +28,13 @@ email: text().notNull().unique(),
 role: text().notNull().default('user')
 
 });
-
+* ========================= */
 
 /** =========================
 
 * Session Table
 
-* ========================= */
+
 
 export const session = sqliteTable('session', {
 
@@ -45,6 +45,7 @@ userId: integer().notNull().references(() => user.id),
 expiresAt: integer({ mode: 'timestamp_ms' }).notNull()
 
 });
+* ========================= */
 
 
 /** =========================

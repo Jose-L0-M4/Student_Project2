@@ -32,7 +32,7 @@
 		"@vitest/browser-playwright": "^4.0.18",
 		"better-auth": "~1.4.21",
 		"drizzle-kit": "^0.31.8",
-		"drizzle-orm": "^0.45.1",
+		"drizzle-orm": "^0.45.2",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.14.0",
@@ -47,6 +47,8 @@
 	},
 	"dependencies": {
 		"bootstrap": "^5.3.8",
-		"bootstrap-icons": "^1.13.1"
+		"bootstrap-icons": "^1.13.1",
+		"drizzle-zod": "^0.8.3",
+		"zod": "^4.3.6"
 	}
 }

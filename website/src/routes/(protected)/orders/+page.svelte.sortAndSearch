@@ -1,0 +1,123 @@
+<script>
+  let { data } = $props();
+  
+  // avoid changing the array that came from the load() function
+  // copy so we can sort safely
+  let orders = $state([...data.orders]);
+
+  // search term
+  let search = $state('');
+
+  // format the money
+  const euro = new Intl.NumberFormat('en-IE', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2
+  });
+
+  // Search function by id, user id and status
+  const visibleOrders = $derived.by(() => {
+    if (!search) return orders;
+
+    const term = search.toLowerCase();
+
+    return orders.filter(order =>
+      order.id.toString().includes(term) ||
+      order.userId.toString().includes(term) ||
+      order.status.toLowerCase().includes(term)
+    );
+  });
+
+
+  /*
+    Sort the data
+  */
+  let sortKey = $state(null);
+  let sortDir = $state('asc');
+
+  function sortBy(key) {
+    if (sortKey === key) {
+      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortKey = key;
+      sortDir = 'asc';
+    }
+
+    orders.sort((a, b) => {
+      let aVal = a[key];
+      let bVal = b[key];
+
+      if (key === 'createdAt') {
+        aVal = new Date(aVal);
+        bVal = new Date(bVal);
+      }
+
+      if (typeof aVal === 'string') {
+        return sortDir === 'asc'
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      }
+
+      return sortDir === 'asc'
+        ? aVal - bVal
+        : bVal - aVal;
+    });
+  }
+</script>
+
+<h3>Orders</h3>
+
+<section>
+  <input type="search" class="form-control w-50 mb-4" placeholder="Search orders by id's or status" bind:value={search} />
+
+  <table class="table table-bordered table-hover w-75">
+    <thead>
+      <tr>
+        <th role="button" onclick={() => sortBy('id')}>
+          ID {sortKey === 'id' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </th>
+
+        <th role="button" onclick={() => sortBy('userId')}>
+          User ID {sortKey === 'userId' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </th>
+
+        <th role="button" onclick={() => sortBy('status')}>
+          Status {sortKey === 'status' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </th>
+
+        <th role="button" onclick={() => sortBy('total')}>
+          Total {sortKey === 'total' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </th>
+
+        <th role="button" onclick={() => sortBy('createdAt')}>
+          Created At {sortKey === 'createdAt' ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {#each visibleOrders as order}
+        <tr>
+          <td>
+            <a href={`/orders/${order.id}`}>{order.id}</a>
+          </td>
+          <td>{order.userId}</td>
+          <td class="text-capitalize">{order.status}</td>
+          <td>{euro.format(order.total)}</td>
+          <td>{new Date(order.createdAt).toLocaleString()}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  th[role="button"] {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  th[role="button"]:hover {
+    background-color: #f8f9fa;
+  }
+</style>
