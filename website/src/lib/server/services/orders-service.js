@@ -3,7 +3,12 @@ import { ordersDataAccess } from '../data-access/orders-data-access.js';
 import { NotFoundError } from '../utils/errors.js';
 import { insertOrderSchema, updateOrderSchema, deleteOrderSchema } from '../db/validation.js';
 import { NotFoundError, ValidationError } from '../utils/errors.js';
+<<<<<<< HEAD
 
+=======
+import { cartDataAccess } from '../data-access/cart-data-access.js';
+import { notifyOrderCreated } from '../notification/order-notifications.js';
+>>>>>>> 5be5ac2 (Another Start)
 
 // The Service Layer performs validation, permission checks,
 // and applies domain rules before database operations occur.
@@ -35,6 +40,7 @@ export const ordersService = {
     return order;
   },
 
+<<<<<<< HEAD
 
   /** Create a new order */
   async createOrder(orderData, items) {
@@ -71,4 +77,48 @@ export const ordersService = {
 
     return deleted;
   }
+=======
+/** Create a new order */
+async createOrderFromCart(user) {
+
+  const userId = Number(user.id);
+
+  if (!Number.isInteger(userId) || userId < 1) {
+    throw new Error('Invalid user ID');
+  }
+
+  // Get cart and items
+  const cart = await cartDataAccess.getOrCreateCart(userId);
+  const items = await cartDataAccess.getCartItems(cart.id);
+
+  // Validate cart is not empty
+  if (!items.length) {
+    throw new Error('Cart is empty');
+  }
+
+  // Calculate total (in cents)
+  const total = items.reduce(
+    (sum, item) => sum + (item.quantity * item.unitPrice),
+    0
+  );
+
+  // Build order payload
+  const orderData = {
+    userId,
+    status: 'pending',
+    total
+  };
+
+  // Validate order schema
+  const validatedOrder = insertOrderSchema.parse(orderData);
+
+  // Create order + order details
+  const order = await ordersDataAccess.createFromCart(validatedOrder, items);
+
+  // Clear cart after successful order
+  await cartDataAccess.clearCart(cart.id);
+
+  return order;
+},
+>>>>>>> 5be5ac2 (Another Start)
 };

@@ -1,7 +1,12 @@
 // ordersDataAccess.js
 import { db } from '../db/index.js';
+<<<<<<< HEAD
 import { order, orderDetail } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
+=======
+import { order, orderDetail, product } from '../db/schema.js';
+import { eq, sql } from 'drizzle-orm';
+>>>>>>> 5be5ac2 (Another Start)
 
 export const ordersDataAccess = {
 
@@ -57,5 +62,58 @@ async findByIdWithDetails(id) {
     await db.delete(orderDetail).where(eq(orderDetail.orderId, id));
     const result = await db.delete(order).where(eq(order.id, id));
     return result.rowsAffected > 0;
+<<<<<<< HEAD
   }
 };
+=======
+  },
+
+  /** Create order + details + reduce stock (transaction) */
+async createFromCart(orderData, items) {
+  return await db.transaction(async (tx) => {
+
+    // 1. Verify stock
+    for (const item of items) {
+      const [dbProduct] = await tx
+        .select()
+        .from(product)
+        .where(eq(product.id, item.productId))
+        .limit(1);
+
+      if (!dbProduct || dbProduct.quantity < item.quantity) {
+        throw new Error(`Not enough stock for ${item.name}`);
+      }
+    }
+
+    // 2. Reduce stock (atomic update to prevent race conditions)
+    for (const item of items) {
+      await tx
+        .update(product)
+        .set({
+          quantity: sql`${product.quantity} - ${item.quantity}`
+        })
+        .where(eq(product.id, item.productId));
+    }
+
+    // 3. Create order
+    const [newOrder] = await tx
+      .insert(order)
+      .values(orderData)
+      .returning();
+
+    // 4. Create order details
+    await tx
+      .insert(orderDetail)
+      .values(
+        items.map(item => ({
+          orderId: newOrder.id,
+          productId: item.productId,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice
+        }))
+      );
+
+    return newOrder;});
+    }
+  };
+>>>>>>> 5be5ac2 (Another Start)

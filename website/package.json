@@ -46,9 +46,18 @@
 		"vitest-browser-svelte": "^2.0.2"
 	},
 	"dependencies": {
+<<<<<<< HEAD
 		"bootstrap": "^5.3.8",
 		"bootstrap-icons": "^1.13.1",
 		"drizzle-zod": "^0.8.3",
+=======
+		"@stripe/stripe-js": "^9.2.0",
+		"bootstrap": "^5.3.8",
+		"bootstrap-icons": "^1.13.1",
+		"drizzle-zod": "^0.8.3",
+		"resend": "^6.11.0",
+		"stripe": "^22.0.1",
+>>>>>>> 5be5ac2 (Another Start)
 		"zod": "^4.3.6"
 	}
 }

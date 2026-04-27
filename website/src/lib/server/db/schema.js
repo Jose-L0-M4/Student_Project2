@@ -163,6 +163,28 @@ productId: integer().notNull().references(() => product.id),
 quantity: integer().notNull().default(1)
 
 });
+<<<<<<< HEAD
+=======
+
+/** =========================
+
+* Product Review Table
+
+* ========================= */
+
+export const productReview = sqliteTable('product_review', {
+  id: integer().primaryKey({ autoIncrement: true }),
+
+  productId: integer().notNull().references(() => product.id),
+
+  userId: integer().notNull().references(() => user.id),
+
+  rating: integer().notNull(),
+
+  comment: text()
+});
+
+>>>>>>> 5be5ac2 (Another Start)
 /** =========================
 
 * Relations for ORM Joins

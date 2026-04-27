@@ -242,7 +242,12 @@
 <slot /> -->
 
 <!-- Third version -->
+<<<<<<< HEAD
  <script>
+=======
+
+<script>
+>>>>>>> 5be5ac2 (Another Start)
   import favicon from '$lib/assets/favicon.svg';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
@@ -250,21 +255,43 @@
   import 'bootstrap/dist/css/bootstrap.min.css';
   import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
+<<<<<<< HEAD
   export let data; // ✅ user from +layout.server
 
   let theme = 'light';
   let menuOpen = false;
 
+=======
+  // Props
+  export let data;
+
+  // State
+  let theme = 'light';
+  let menuOpen = false;
+
+  // Lifecycle
+>>>>>>> 5be5ac2 (Another Start)
   onMount(async () => {
     if (browser) {
       theme =
         document.documentElement.getAttribute('data-bs-theme') || 'light';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5be5ac2 (Another Start)
       await import('bootstrap');
     }
   });
 
+<<<<<<< HEAD
   function toggleTheme() {
     theme = theme === 'light' ? 'dark' : 'light';
+=======
+  // Actions
+  function toggleTheme() {
+    theme = theme === 'light' ? 'dark' : 'light';
+
+>>>>>>> 5be5ac2 (Another Start)
     document.documentElement.setAttribute('data-bs-theme', theme);
     localStorage.setItem('theme', theme);
   }
@@ -283,11 +310,25 @@
 
   <!-- LEFT -->
   <div class="d-flex align-items-center">
+<<<<<<< HEAD
     <button class="btn me-2" on:click={toggleMenu} aria-label="Toggle menu">
       <i class="bi bi-list fs-4"></i>
     </button>
 
     <a class="navbar-brand fw-bold" href="/">FitWorld</a>
+=======
+    <button
+      class="btn me-2"
+      on:click={toggleMenu}
+      aria-label="Toggle menu"
+    >
+      <i class="bi bi-list fs-4"></i>
+    </button>
+
+    <a class="navbar-brand fw-bold" href="/">
+      FitWorld
+    </a>
+>>>>>>> 5be5ac2 (Another Start)
   </div>
 
   <!-- RIGHT -->
@@ -304,6 +345,7 @@
 
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
+<<<<<<< HEAD
             <a class="dropdown-item" href="/account">👤 Profile</a>
           </li>
 
@@ -312,6 +354,23 @@
           <li>
             <form method="post" action="/auth/logout">
               <button class="dropdown-item text-danger" type="submit">
+=======
+            <a class="dropdown-item" href="/account">
+              👤 Profile
+            </a>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+
+          <li>
+            <form method="post" action="/auth/logout">
+              <button
+                class="dropdown-item text-danger"
+                type="submit"
+              >
+>>>>>>> 5be5ac2 (Another Start)
                 🚪 Logout
               </button>
             </form>
@@ -322,7 +381,15 @@
     {:else}
 
       <!-- LOGIN -->
+<<<<<<< HEAD
       <a href="/auth/login" class="btn" aria-label="Log in">
+=======
+      <a
+        href="/auth/login"
+        class="btn"
+        aria-label="Log in"
+      >
+>>>>>>> 5be5ac2 (Another Start)
         <i class="bi bi-person-circle fs-5"></i>
       </a>
 
@@ -330,7 +397,14 @@
 
     <!-- THEME -->
     <!-- svelte-ignore a11y_consider_explicit_label -->
+<<<<<<< HEAD
     <button class="btn btn-outline-secondary" on:click={toggleTheme}>
+=======
+    <button
+      class="btn btn-outline-secondary"
+      on:click={toggleTheme}
+    >
+>>>>>>> 5be5ac2 (Another Start)
       <i class="bi bi-moon"></i>
     </button>
 
@@ -340,6 +414,7 @@
 <!-- SIDEBAR -->
 {#if menuOpen}
 
+<<<<<<< HEAD
   <!-- overlay -->
   <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
   <div 
@@ -347,19 +422,37 @@
     style="z-index: 1040;" 
     on:click={toggleMenu}
     on:keydown={(e) => (e.key === 'Escape' && toggleMenu())}
+=======
+  <!-- OVERLAY -->
+  <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+  <div
+    class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50"
+    style="z-index: 1040;"
+    on:click={toggleMenu}
+    on:keydown={(e) => e.key === 'Escape' && toggleMenu()}
+>>>>>>> 5be5ac2 (Another Start)
     role="button"
     tabindex="0"
     aria-label="Close menu"
   ></div>
+<<<<<<< HEAD
   
 
   <!-- panel -->
+=======
+
+  <!-- PANEL -->
+>>>>>>> 5be5ac2 (Another Start)
   <div
     class="position-fixed top-0 start-0 vh-100 bg-body-tertiary shadow p-3"
     style="width: 260px; z-index: 1050;"
   >
     <h5 class="mb-4">Menu</h5>
 
+<<<<<<< HEAD
+=======
+    <!-- MAIN LINKS -->
+>>>>>>> 5be5ac2 (Another Start)
     <a class="nav-link mb-2" href="/">🏠 Home</a>
     <a class="nav-link mb-2" href="/browse">🔍 Browse</a>
     <a class="nav-link mb-2" href="/diet_planner">🥗 Diet Planner</a>
@@ -367,16 +460,39 @@
 
     <hr />
 
+<<<<<<< HEAD
+=======
+    <!-- SHOP -->
+>>>>>>> 5be5ac2 (Another Start)
     <a class="nav-link mb-2" href="/products">🛒 Shop</a>
     <a class="nav-link mb-2" href="/orders">📦 My Orders</a>
     <a class="nav-link mb-2" href="/categories">📂 Categories</a>
 
+<<<<<<< HEAD
     <hr />
 
     <a class="nav-link mb-2" href="/contact">📩 Contact</a>
+=======
+    {#if data.user && data.cartCount > 0}
+      <a class="nav-link mb-2" href="/cart">
+        <i class="bi bi-cart me-1"></i>
+        Cart ({data.cartCount})
+      </a>
+    {/if}
+
+    <hr />
+
+    <!-- EXTRA -->
+    <a class="nav-link mb-2" href="/contact">📩 Contact</a>
+    <a class="nav-link mb-2" href="/review">⭐ Reviews</a>
+>>>>>>> 5be5ac2 (Another Start)
   </div>
 
 {/if}
 
+<<<<<<< HEAD
 <!-- PAGE -->
+=======
+<!-- PAGE CONTENT -->
+>>>>>>> 5be5ac2 (Another Start)
 <slot />

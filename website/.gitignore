@@ -24,3 +24,8 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 # SQLite
 *.db
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5be5ac2 (Another Start)
