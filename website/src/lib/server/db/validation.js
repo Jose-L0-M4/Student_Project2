@@ -134,8 +134,7 @@ export const updateOrderDetailSchema = insertOrderDetailSchema
 
 export const deleteOrderDetailSchema = z.object({
   id: z.number().int().positive()
-<<<<<<< HEAD
-=======
+
 });
 
 /** =========================
@@ -145,5 +144,5 @@ export const deleteOrderDetailSchema = z.object({
 export const reviewSchema = z.object({
   rating: z.number().min(1).max(5),
   comment: z.string().optional(),
->>>>>>> 5be5ac2 (Another Start)
+
 });

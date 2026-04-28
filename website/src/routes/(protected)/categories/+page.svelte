@@ -131,7 +131,7 @@
                     {#each categories as category (category.id)}
                         <tr>
                             <td>{category.id}</td>
-                            <td><a href={`/category/${category.id}`}>{category.name}</a></td>
+                            <td><a href={`/categories/${category.id}`}>{category.name}</a></td>
                             <td>{category.description}</td>
                             <td>
                                 <button

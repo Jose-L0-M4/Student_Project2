@@ -163,8 +163,7 @@ productId: integer().notNull().references(() => product.id),
 quantity: integer().notNull().default(1)
 
 });
-<<<<<<< HEAD
-=======
+
 
 /** =========================
 
@@ -184,7 +183,7 @@ export const productReview = sqliteTable('product_review', {
   comment: text()
 });
 
->>>>>>> 5be5ac2 (Another Start)
+
 /** =========================
 
 * Relations for ORM Joins

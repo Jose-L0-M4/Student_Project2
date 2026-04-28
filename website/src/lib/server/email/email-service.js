@@ -15,5 +15,5 @@ export async function sendOrderConfirmationEmail({ to, orderId, total }) {
     `
   });
 
-  console.log('Order confirmation email sent to', to);
+  console.log(`Order confirmation email sent to ${to}`);
 }

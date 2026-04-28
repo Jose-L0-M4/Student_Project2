@@ -1,11 +1,13 @@
 <script>
-  // get data that was returned when the page was loaded
   let { data } = $props();
+
+  const items = data.items ?? [];
+  const total = data.total ?? 0;
 </script>
 
 <h2>Your Cart</h2>
 
-{#if data.items.length === 0}
+{#if items.length === 0}
   <p>Your cart is empty.</p>
 {:else}
   <table class="table">
@@ -20,7 +22,7 @@
     </thead>
 
     <tbody>
-      {#each data.items as item}
+      {#each items as item}
         <tr>
           <td>{item.name}</td>
 
@@ -61,7 +63,7 @@
     </tbody>
   </table>
 
-  <h4>Total: €{(data.total / 100).toFixed(2)}</h4>
+  <h4>Total: €{(total / 100).toFixed(2)}</h4>
 
   <form method="post" action="?/checkout">
     <button class="btn btn-primary">

@@ -1,12 +1,7 @@
 // ordersDataAccess.js
 import { db } from '../db/index.js';
-<<<<<<< HEAD
-import { order, orderDetail } from '../db/schema.js';
-import { eq } from 'drizzle-orm';
-=======
 import { order, orderDetail, product } from '../db/schema.js';
 import { eq, sql } from 'drizzle-orm';
->>>>>>> 5be5ac2 (Another Start)
 
 export const ordersDataAccess = {
 
@@ -62,10 +57,7 @@ async findByIdWithDetails(id) {
     await db.delete(orderDetail).where(eq(orderDetail.orderId, id));
     const result = await db.delete(order).where(eq(order.id, id));
     return result.rowsAffected > 0;
-<<<<<<< HEAD
-  }
-};
-=======
+
   },
 
   /** Create order + details + reduce stock (transaction) */
@@ -116,4 +108,4 @@ async createFromCart(orderData, items) {
     return newOrder;});
     }
   };
->>>>>>> 5be5ac2 (Another Start)
+

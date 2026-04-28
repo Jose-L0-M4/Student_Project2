@@ -3,12 +3,9 @@ import { ordersDataAccess } from '../data-access/orders-data-access.js';
 import { NotFoundError } from '../utils/errors.js';
 import { insertOrderSchema, updateOrderSchema, deleteOrderSchema } from '../db/validation.js';
 import { NotFoundError, ValidationError } from '../utils/errors.js';
-<<<<<<< HEAD
 
-=======
 import { cartDataAccess } from '../data-access/cart-data-access.js';
 import { notifyOrderCreated } from '../notification/order-notifications.js';
->>>>>>> 5be5ac2 (Another Start)
 
 // The Service Layer performs validation, permission checks,
 // and applies domain rules before database operations occur.
@@ -39,8 +36,6 @@ export const ordersService = {
     
     return order;
   },
-
-<<<<<<< HEAD
 
   /** Create a new order */
   async createOrder(orderData, items) {
@@ -76,8 +71,7 @@ export const ordersService = {
     if (!deleted) throw new NotFoundError('Order not found to delete');
 
     return deleted;
-  }
-=======
+  },
 /** Create a new order */
 async createOrderFromCart(user) {
 
@@ -109,6 +103,13 @@ async createOrderFromCart(user) {
     total
   };
 
+  //Get order by ID
+  const getOrderById = async (id) => {
+    const order = await ordersDataAccess.findById(id);
+    if (!order) throw new NotFoundError('Order not found');
+    return order;
+  };
+
   // Validate order schema
   const validatedOrder = insertOrderSchema.parse(orderData);
 
@@ -118,7 +119,14 @@ async createOrderFromCart(user) {
   // Clear cart after successful order
   await cartDataAccess.clearCart(cart.id);
 
+  // Send email (non-blocking)
+notifyOrderCreated({ order, user }).catch((err) => {
+  console.error('Order created but email failed', err);
+});
+
+
   return order;
 },
->>>>>>> 5be5ac2 (Another Start)
+
 };
+

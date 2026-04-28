@@ -1,18 +1,4 @@
 import { usersService } from '$lib/server/services/users-service.js';
-<<<<<<< HEAD
-
-export async function load({ locals }) {
-  if (!locals.user) {
-    return {
-      user: null
-    };
-  }
-  
-  const fullUser = await usersService.getById(Number(locals.user.id));
-
-  return {
-    user: fullUser
-=======
 import { cartService } from '$lib/server/services/cart-service';
 
 export async function load({ locals }) {
@@ -35,6 +21,5 @@ export async function load({ locals }) {
   return {
     user: fullUser,
     cartCount: items.length
->>>>>>> 5be5ac2 (Another Start)
   };
 }
